@@ -9,4 +9,8 @@ public interface IBookRepository<T> {
 
     public Book getBookById(int id);
 
+    public String deleteBookById(int deleteId);
+
+    public String updateBookById(Book book,int updateId);
+
 }

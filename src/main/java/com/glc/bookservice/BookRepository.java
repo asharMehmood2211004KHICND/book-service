@@ -30,4 +30,42 @@ public class BookRepository implements IBookRepository<Book>{
         // TODO Auto-generated method stub
         return repository.get(id);
     }
+
+    @Override
+    public String deleteBookById(int deleteId) {
+        
+        Book bookToDelete  = getBookById(deleteId);
+        if(bookToDelete==null){
+            return "This book do not exist";
+
+        }else{
+            this.repository.remove(deleteId);
+            return "The book is deleted";
+        }
+        
+
+    }
+
+    @Override
+    public String updateBookById(Book book ,int updateId) {
+        // TODO Auto-generated method stub
+
+
+        Book bookToUpdate  = getBookById(updateId);
+        if(bookToUpdate==null){
+            return "not existing book can not be updated";
+        }else{
+            this.repository.put(updateId, book);
+            return "this book is updated";
+        }
+
+
+
+
+        //repository.put(book.getId(), book);
+        
+
+
+
+    }
 }

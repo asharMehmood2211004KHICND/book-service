@@ -37,6 +37,7 @@ class BookServiceApplicationTests {
 	private BookController bookController;
 
 	private JacksonTester<Book> jsonBook;
+	private String returnText;
 	private JacksonTester<Collection<Book>> jsonBooks;
 
 	@BeforeEach
@@ -100,6 +101,31 @@ class BookServiceApplicationTests {
 
 	}
 
+	// @Test
+	// public void canDeleteBookById() throws Exception {
+	// 	Book book1 = new Book(1, "The Hobbit", "J.R.R. Tolkein", 1937, 320);
+	// 	Book book2 = new Book(2, "It", "Stephen King", 1986, 1138);
+
+	// 	final Map<Integer, Book> myTestRepository;
+
+																										
+	// 	//Collection<Book> books = new ArrayList<Book>();
+
+	// 	myTestRepository = new HashMap<>();
+
+	// 	myTestRepository.put(book1.getId(), book1);
+	// 	myTestRepository.put(book2.getId(), book2);
+		
+	// 	when(bookRepository.deleteBookById(1)).thenReturn("");
+
+	// 	mvc.perform(put("/books/1")
+	// 			.contentType(MediaType.APPLICATION_JSON))
+	// 		.andExpect(status().isOk())
+	// 		.andExpect(content().json(jsonBook.write("ds").getJson()));
+		
+	// }
+
+	
 
 
 }
