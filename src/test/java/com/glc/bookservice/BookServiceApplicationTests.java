@@ -18,6 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -72,4 +74,32 @@ class BookServiceApplicationTests {
 			.andExpect(status().isOk())
 			.andExpect(content().json(jsonBooks.write(books).getJson()));
 	}
+
+	@Test
+	public void canGetBookById()throws Exception{
+
+		Book book1 = new Book(1, "The Hobbit", "J.R.R. Tolkein", 1937, 320);
+		Book book2 = new Book(2, "It", "Stephen King", 1986, 1138);
+
+		final Map<Integer, Book> myTestRepository;
+
+																										
+		//Collection<Book> books = new ArrayList<Book>();
+
+		myTestRepository = new HashMap<>();
+
+		myTestRepository.put(book1.getId(), book1);
+		myTestRepository.put(book2.getId(), book2);
+
+		when(bookRepository.getBookById(1)).thenReturn(myTestRepository.get(1));
+
+		mvc.perform(get("/books/1")
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().json(jsonBook.write(book1).getJson()));
+
+	}
+
+
+
 }
