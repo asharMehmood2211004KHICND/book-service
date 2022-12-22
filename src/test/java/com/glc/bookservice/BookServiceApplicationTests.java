@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -37,7 +39,7 @@ class BookServiceApplicationTests {
 	private BookController bookController;
 
 	private JacksonTester<Book> jsonBook;
-	private String returnText;
+	//private String returnText;
 	private JacksonTester<Collection<Book>> jsonBooks;
 
 	@BeforeEach
@@ -101,30 +103,65 @@ class BookServiceApplicationTests {
 
 	}
 
-	// @Test
-	// public void canDeleteBookById() throws Exception {
-	// 	Book book1 = new Book(1, "The Hobbit", "J.R.R. Tolkein", 1937, 320);
-	// 	Book book2 = new Book(2, "It", "Stephen King", 1986, 1138);
+	@Test
+	public void canDeleteBookById() throws Exception {
+		Book book1 = new Book(1, "The Hobbit", "J.R.R. Tolkein", 1937, 320);
+		Book book2 = new Book(2, "It", "Stephen King", 1986, 1138);
 
-	// 	final Map<Integer, Book> myTestRepository;
+		final Map<Integer, Book> myTestRepository;
 
 																										
-	// 	//Collection<Book> books = new ArrayList<Book>();
+		//Collection<Book> books = new ArrayList<Book>();
 
-	// 	myTestRepository = new HashMap<>();
+		myTestRepository = new HashMap<>();
 
-	// 	myTestRepository.put(book1.getId(), book1);
-	// 	myTestRepository.put(book2.getId(), book2);
+		//adding books
+		myTestRepository.put(book1.getId(), book1);
+		myTestRepository.put(book2.getId(), book2);
 		
-	// 	when(bookRepository.deleteBookById(1)).thenReturn("");
+		when(bookRepository.deleteBookById(1)).thenReturn("The book is deleted");
 
-	// 	mvc.perform(put("/books/1")
-	// 			.contentType(MediaType.APPLICATION_JSON))
-	// 		.andExpect(status().isOk())
-	// 		.andExpect(content().json(jsonBook.write("ds").getJson()));
+		mvc.perform(delete("/books/1")
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().string("The book is deleted"));
 		
-	// }
+	}
+	@Test
+	public void canUpdateBookById() throws Exception {
+		Book book1 = new Book(1, "The Hobbit", "J.R.R. Tolkein", 1937, 320);
+		//Book book2 = new Book(2, "It", "Stephen King", 1986, 1138);
 
+		final Map<Integer, Book> myTestRepository;
+
+																										
+		//Collection<Book> books = new ArrayList<Book>();
+
+		myTestRepository = new HashMap<>();
+
+		//adding books
+		myTestRepository.put(book1.getId(), book1);
+		
+		when(bookRepository.updateBookById(any(), anyInt())).thenReturn("this book is updated");
+
+		mvc.perform(put("/books/1")
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().string("this book is updated"));
+		
+	}
+
+
+
+	// @Test
+    // public void UpdateBook() throws Exception{
+    //     Book book = new Book(1, "ABC Book","Ashfaq Ahmed",1988,120);
+    //     when(bookRepo.updateParticularBook(1,book)).thenReturn("Book #1 has been Updated");
+    //     mvc.perform(post("/books/update/1")
+    //     .contentType(MediaType.APPLICATION_JSON)
+    //     .content(jsonBook.write(book).getJson()))
+    //     .andExpect(status().isOk());
+    // }
 	
 
 
