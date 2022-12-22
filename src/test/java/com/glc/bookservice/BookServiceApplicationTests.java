@@ -144,12 +144,37 @@ class BookServiceApplicationTests {
 		
 		when(bookRepository.updateBookById(any(), anyInt())).thenReturn("this book is updated");
 
+		// mvc.perform(
+			
+		// put("/books/1")
+		// 		.contentType(MediaType.APPLICATION_JSON))
+			
+		// 	.andExpect(content().json(jsonBook.write(book1).getJson()))
+		// 	.andExpect(status().isOk())
+		// 	.andExpect(content().string("this book is updated"));
+
 		mvc.perform(put("/books/1")
-				.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(content().string("this book is updated"));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonBook.write(book1).getJson()))
+            .andExpect(status().isOk())
+            .andExpect(content().string("this book is updated"));
 		
 	}
+
+
+	// @Test
+	// public void canCreateANewBook() throws Exception {
+	// 	Book book = new Book(1, "The Hobbit", "J.R.R. Tolkein", 1937, 320);
+	// 	mvc.perform(post("/books")
+	// 		.contentType(MediaType.APPLICATION_JSON)
+	// 		.content(jsonBook.write(book).getJson()))
+	// 		.andExpect(status().isOk());
+	// }
+
+
+
+//	.content(jsonBook.write(book).getJson()))
+
 
 
 
